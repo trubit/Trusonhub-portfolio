@@ -130,7 +130,7 @@ export const ContactPage = () => {
 
                 <form onSubmit={handleSubmit} noValidate>
                   <Row className="g-3">
-                    <Col sm={6}>
+                    <Col md={6}>
                       <div className="pp-form-group">
                         <label className="pp-form-label" htmlFor="cf-name">Full Name *</label>
                         <input
@@ -146,7 +146,7 @@ export const ContactPage = () => {
                         />
                       </div>
                     </Col>
-                    <Col sm={6}>
+                    <Col md={6}>
                       <div className="pp-form-group">
                         <label className="pp-form-label" htmlFor="cf-email">Email Address *</label>
                         <input

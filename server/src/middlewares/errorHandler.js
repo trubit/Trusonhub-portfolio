@@ -1,4 +1,4 @@
-export const errorHandler = (error, _req, res) => {
+export const errorHandler = (error, _req, res, _next) => {
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
 
   if (error.name === "ValidationError") {

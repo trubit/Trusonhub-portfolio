@@ -76,7 +76,7 @@ export const BlogPage = () => {
               </div>
               <Row className="g-4">
                 {posts.map((post) => (
-                  <Col sm={6} lg={4} key={post._id}>
+                  <Col md={6} lg={4} key={post._id}>
                     <div className="pp-blog-card">
                       <div className="pp-blog-body">
                         <div className="pp-blog-tags">

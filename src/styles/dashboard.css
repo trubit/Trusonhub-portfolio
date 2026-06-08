@@ -4,7 +4,7 @@
 
 .dashboard-root {
   display: flex;
-  min-height: calc(100vh - 64px);
+  min-height: calc(100vh - 68px);
   background: var(--bg-page);
   transition: background 0.3s ease;
 }
@@ -17,11 +17,11 @@
   border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  transition: width 0.25s ease, background 0.3s ease, border-color 0.3s ease;
+  transition: width 0.28s cubic-bezier(0.4, 0, 0.2, 1), transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease, border-color 0.3s ease;
   overflow: hidden;
   position: sticky;
-  top: 64px;
-  height: calc(100vh - 64px);
+  top: 68px;
+  height: calc(100vh - 68px);
   overflow-y: auto;
 }
 
@@ -165,24 +165,90 @@
   color: var(--text-primary);
 }
 
+/* ── Mobile menu toggle button (only visible on mobile/tablet) */
+.dashboard-mobile-toggle {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .dashboard-mobile-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding: 10px 16px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    font-weight: 700;
+    cursor: pointer;
+    min-height: 44px;
+    transition: background 0.15s;
+  }
+
+  .dashboard-mobile-toggle:hover {
+    background: var(--hover-bg);
+  }
+}
+
+/* ── Sidebar overlay (mobile/tablet only) ── */
+.sidebar-overlay {
+  display: none;
+}
+
 @media (max-width: 900px) {
   .dashboard-sidebar {
     position: fixed;
-    top: 64px;
+    top: 68px;
     left: 0;
     z-index: 200;
-    height: calc(100vh - 64px);
+    height: calc(100vh - 68px);
+    width: 280px;
     transform: translateX(0);
-    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.18);
+    box-shadow: 4px 0 32px rgba(0, 0, 0, 0.28);
+    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .dashboard-sidebar.collapsed {
     transform: translateX(-100%);
-    width: 260px;
+    width: 280px;
   }
 
   .dashboard-main {
     padding: 20px 16px;
+    width: 100%;
+  }
+
+  .sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 199;
+    cursor: pointer;
+  }
+
+  .sidebar-overlay.visible {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-main {
+    padding: 12px 10px;
+  }
+
+  .dashboard-sidebar {
+    width: 260px;
+  }
+
+  .dashboard-sidebar.collapsed {
+    width: 260px;
+  }
+
+  .cms-card {
+    padding: 16px 14px;
   }
 }
 

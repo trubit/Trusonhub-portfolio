@@ -1062,6 +1062,14 @@
   background: var(--media-item-bg);
 }
 
+@media (max-width: 480px) {
+  .media-doc-preview-wrap,
+  .media-doc-iframe,
+  .media-doc-empty {
+    min-height: 220px;
+  }
+}
+
 .media-doc-empty-icon {
   font-size: 2.8rem;
   opacity: 0.45;

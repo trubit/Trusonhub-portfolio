@@ -1,5 +1,8 @@
+import { useEffect } from "react";
+
 import ArticleIcon from "@mui/icons-material/Article";
 import BadgeIcon from "@mui/icons-material/Badge";
+import CloseIcon from "@mui/icons-material/Close";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import FolderIcon from "@mui/icons-material/Folder";
 import ImageIcon from "@mui/icons-material/Image";
@@ -32,11 +35,30 @@ const NAV_ITEMS = [
   { section: DASHBOARD_SECTIONS.SETTINGS, label: "Settings", icon: <SettingsIcon fontSize="small" /> },
 ];
 
+const MOBILE_BREAKPOINT = 900;
+
 export const DashboardLayout = ({ children }) => {
-  const { activeSection, sidebarOpen, setSection, toggleSidebar } = useDashboardStore();
+  const { activeSection, sidebarOpen, setSection, toggleSidebar, closeSidebar } = useDashboardStore();
+
+  const isMobile = () => window.innerWidth <= MOBILE_BREAKPOINT;
+
+  useEffect(() => {
+    if (isMobile()) closeSidebar();
+  }, []);
+
+  const handleNavClick = (section) => {
+    setSection(section);
+    if (isMobile()) closeSidebar();
+  };
 
   return (
     <div className="dashboard-root">
+      <div
+        className={`sidebar-overlay${sidebarOpen ? " visible" : ""}`}
+        onClick={closeSidebar}
+        aria-hidden="true"
+      />
+
       <aside className={`dashboard-sidebar${sidebarOpen ? "" : " collapsed"}`}>
         <div className="sidebar-header">
           <span className="sidebar-brand">TrusonHub CMS</span>
@@ -45,7 +67,7 @@ export const DashboardLayout = ({ children }) => {
             onClick={toggleSidebar}
             aria-label={sidebarOpen ? "Collapse sidebar" : "Expand sidebar"}
           >
-            <MenuIcon fontSize="small" />
+            {sidebarOpen ? <CloseIcon fontSize="small" /> : <MenuIcon fontSize="small" />}
           </button>
         </div>
 
@@ -63,7 +85,7 @@ export const DashboardLayout = ({ children }) => {
               <button
                 key={item.section}
                 className={`sidebar-item${activeSection === item.section ? " active" : ""}`}
-                onClick={() => setSection(item.section)}
+                onClick={() => handleNavClick(item.section)}
                 title={item.label}
                 aria-current={activeSection === item.section ? "page" : undefined}
               >
@@ -75,7 +97,18 @@ export const DashboardLayout = ({ children }) => {
         </nav>
       </aside>
 
-      <main className="dashboard-main">{children}</main>
+      <main className="dashboard-main">
+        <button
+          className="dashboard-mobile-toggle"
+          onClick={toggleSidebar}
+          aria-label="Open navigation menu"
+        >
+          <MenuIcon fontSize="small" />
+          <span>Menu</span>
+        </button>
+
+        {children}
+      </main>
     </div>
   );
 };

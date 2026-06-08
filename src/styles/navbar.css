@@ -204,6 +204,14 @@
     min-height: 68px;
   }
 
+  .elite-menu-toggle.navbar-toggler {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .elite-brand {
     min-width: auto;
   }
@@ -255,6 +263,12 @@
     width: 100%;
   }
 
+  .elite-nav-link {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
   .elite-theme-btn,
   .elite-logout-btn,
   .elite-admin-btn {
@@ -263,6 +277,7 @@
     border-color: var(--border-soft);
     background: rgba(148, 163, 184, 0.1);
     color: var(--text-main);
+    min-height: 44px;
   }
 }
 

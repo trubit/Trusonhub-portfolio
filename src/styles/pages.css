@@ -121,7 +121,7 @@
 }
 
 .pp-hero-profile-card {
-  width: 260px;
+  width: clamp(220px, 22vw, 280px);
   border-radius: 22px;
   padding: 1.4rem;
   border: 1px solid var(--border-soft);
@@ -1253,13 +1253,19 @@
   .pp-timeline-dot { left: calc(-1.75rem - 7px); }
   .pp-cta-actions { flex-direction: column; align-items: center; }
   .pp-cta-actions .btn { width: 100%; max-width: 320px; }
-}
-
-@media (max-width: 575px) {
-  .pp-hero-title { font-size: clamp(1.9rem, 10vw, 2.6rem); }
-  .pp-stat-strip { border-radius: 16px; }
+  .pp-stat-strip { grid-template-columns: 1fr; border-radius: 16px; }
   .pp-stat-item { border-right: none; }
   .pp-stat-item:not(:last-child) { border-bottom: 1px solid rgba(255, 255, 255, 0.13); }
   .pp-stat-item:nth-child(3),
   .pp-stat-item:nth-child(4) { border-top: none; }
+}
+
+@media (max-width: 575px) {
+  .pp-hero-title { font-size: clamp(1.9rem, 10vw, 2.6rem); }
+}
+
+@media (max-width: 480px) {
+  .pp-timeline { padding-left: 1.25rem; }
+  .pp-timeline-dot { left: calc(-1.25rem - 7px); }
+  .pp-timeline-card { padding: 0.85rem 1rem; }
 }
