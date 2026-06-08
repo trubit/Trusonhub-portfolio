@@ -1,0 +1,277 @@
+.elite-navbar {
+  border-bottom: 1px solid var(--border-soft);
+  background:
+    linear-gradient(110deg, rgba(9, 29, 70, 0.96), rgba(5, 59, 90, 0.95)),
+    var(--bg-surface);
+  box-shadow: 0 12px 35px rgba(2, 10, 24, 0.22);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  z-index: 1200;
+}
+
+:root[data-theme="dark"] .elite-navbar {
+  background:
+    linear-gradient(110deg, rgba(5, 12, 28, 0.96), rgba(6, 45, 60, 0.94)),
+    var(--bg-surface);
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.46);
+}
+
+.elite-navbar-inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-height: 76px;
+}
+
+.elite-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.72rem;
+  min-width: 270px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.elite-brand:hover {
+  text-decoration: none;
+}
+
+.elite-brand-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #e2ecff;
+  background: linear-gradient(140deg, rgba(99, 164, 255, 0.42), rgba(45, 212, 191, 0.24));
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.elite-brand-text {
+  display: grid;
+  line-height: 1.1;
+}
+
+.elite-brand-text strong {
+  color: #f3f7ff;
+  font-size: 1.01rem;
+  font-weight: 800;
+}
+
+.elite-brand-text small {
+  color: rgba(226, 232, 240, 0.84);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.elite-navbar-collapse {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex: 1;
+}
+
+.elite-navbar-center {
+  display: flex;
+  align-items: center;
+  gap: 0.24rem;
+  flex: 1;
+  min-width: 0;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.elite-navbar-center::-webkit-scrollbar {
+  display: none;
+}
+
+.elite-nav-link {
+  color: rgba(226, 232, 240, 0.9);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.52rem 0.74rem;
+  border-radius: 10px;
+  transition: color 0.2s ease, background 0.2s ease;
+  flex-shrink: 0;
+}
+
+.elite-nav-link:hover {
+  color: #fff;
+  background: rgba(148, 163, 184, 0.16);
+  text-decoration: none;
+}
+
+.elite-nav-link.is-active {
+  color: #fff;
+  background: linear-gradient(130deg, rgba(99, 164, 255, 0.34), rgba(45, 212, 191, 0.2));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+}
+
+.elite-navbar-actions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.elite-theme-btn,
+.elite-logout-btn {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(15, 23, 42, 0.3);
+  color: #f8fafc;
+  border-radius: 11px;
+  padding: 0.44rem 0.7rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.elite-theme-btn:hover,
+.elite-logout-btn:hover {
+  background: rgba(148, 163, 184, 0.2);
+}
+
+.elite-admin-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  border-radius: 11px;
+  padding: 0.43rem 0.78rem;
+  font-weight: 700;
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #f8fafc;
+  background: rgba(148, 163, 184, 0.16);
+}
+
+.elite-admin-btn:hover,
+.elite-admin-btn.is-active {
+  border-color: rgba(255, 255, 255, 0.38);
+  background: rgba(148, 163, 184, 0.3);
+  color: #fff;
+}
+
+.elite-menu-toggle.navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.elite-menu-toggle .navbar-toggler-icon {
+  filter: brightness(2.2);
+}
+
+/* ── Medium desktop (992–1279px): all 10 links must fit without overflow ─── */
+@media (min-width: 992px) and (max-width: 1023px) {
+  .elite-brand {
+    min-width: 180px;
+  }
+
+  .elite-nav-link {
+    font-size: 0.79rem;
+    padding: 0.4rem 0.42rem;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .elite-brand {
+    min-width: 210px;
+  }
+
+  .elite-nav-link {
+    font-size: 0.83rem;
+    padding: 0.44rem 0.52rem;
+  }
+}
+
+@media (max-width: 991px) {
+  /* iOS Safari: backdrop-filter on position:sticky blocks all touch events across the page.
+     Use an opaque background on mobile to avoid this compositing bug entirely. */
+  .elite-navbar {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: linear-gradient(180deg, rgba(5, 12, 28, 0.99), rgba(6, 45, 60, 0.98));
+  }
+
+  .elite-navbar-inner {
+    min-height: 68px;
+  }
+
+  .elite-brand {
+    min-width: auto;
+  }
+
+  .elite-navbar-collapse {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    margin-top: 0.8rem;
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    padding: 0.8rem;
+    background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-soft) 100%);
+    /* Ensure collapse is its own layer, above all page content */
+    position: relative;
+    z-index: 1201;
+    isolation: isolate;
+  }
+
+  .elite-navbar-center {
+    display: grid;
+    overflow: visible;
+    white-space: normal;
+    gap: 0.35rem;
+  }
+
+  .elite-nav-link {
+    color: var(--text-main);
+    background: rgba(148, 163, 184, 0.08);
+    border: 1px solid var(--border-soft);
+    display: block;
+    width: 100%;
+    pointer-events: auto;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(20, 184, 166, 0.12);
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .elite-nav-link.is-active,
+  .elite-nav-link:hover {
+    color: var(--text-main);
+    background: rgba(10, 91, 216, 0.14);
+  }
+
+  .elite-navbar-actions {
+    display: grid;
+    gap: 0.55rem;
+    width: 100%;
+  }
+
+  .elite-theme-btn,
+  .elite-logout-btn,
+  .elite-admin-btn {
+    width: 100%;
+    justify-content: center;
+    border-color: var(--border-soft);
+    background: rgba(148, 163, 184, 0.1);
+    color: var(--text-main);
+  }
+}
+
+@media (max-width: 575px) {
+  .elite-brand-text small {
+    display: none;
+  }
+
+  .elite-brand-text strong {
+    font-size: 0.9rem;
+  }
+}

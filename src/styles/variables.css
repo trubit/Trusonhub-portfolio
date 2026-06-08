@@ -1,0 +1,80 @@
+/* ═══════════════════════════════════════════════════════════
+   DESIGN TOKENS — Light (default) & Dark themes
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  /* Brand */
+  --brand-primary:   #0a5bd8;
+  --brand-secondary: #0f766e;
+
+  /* Page surfaces */
+  --bg-page:    #f2f6fb;
+  --bg-surface: #ffffff;
+  --bg-soft:    #ecf2fb;
+  --bg-paper:   #ffffff;
+  --bg-default: #f8fafc;
+
+  /* Text */
+  --text-main:      #0f172a;
+  --text-muted:     #475569;
+  --text-primary:   #0f172a;
+  --text-secondary: #475569;
+
+  /* Borders */
+  --border-soft: rgba(15, 23, 42, 0.1);
+  --border:      #e2e8f0;
+
+  /* Interactive */
+  --primary:       #0a5bd8;
+  --primary-light: #eff6ff;
+  --hover-bg:      #f1f5f9;
+
+  /* Shadows */
+  --shadow-soft:  0 16px 38px rgba(12, 22, 44, 0.08);
+  --shadow-float: 0 20px 46px rgba(12, 22, 44, 0.14);
+
+  /* Misc */
+  --radius-md: 18px;
+  --radius-sm: 12px;
+  --hero-glow:
+    radial-gradient(circle at 8% 8%,  rgba(10, 91, 216, 0.17), transparent 34%),
+    radial-gradient(circle at 90% 20%, rgba(15, 118, 110, 0.16), transparent 30%);
+}
+
+/* ── Dark theme ───────────────────────────────────────────── */
+:root[data-theme="dark"] {
+  /* Brand */
+  --brand-primary:   #63a4ff;
+  --brand-secondary: #2dd4bf;
+
+  /* Page surfaces */
+  --bg-page:    #050a16;
+  --bg-surface: #0b1220;
+  --bg-soft:    #101a2f;
+  --bg-paper:   #0d1626;
+  --bg-default: #0a1221;
+
+  /* Text */
+  --text-main:      #e2e8f0;
+  --text-muted:     #94a3b8;
+  --text-primary:   #e2e8f0;
+  --text-secondary: #94a3b8;
+
+  /* Borders */
+  --border-soft: rgba(148, 163, 184, 0.15);
+  --border:      rgba(148, 163, 184, 0.15);
+
+  /* Interactive */
+  --primary:       #63a4ff;
+  --primary-light: rgba(99, 164, 255, 0.12);
+  --hover-bg:      rgba(255, 255, 255, 0.05);
+
+  /* Shadows */
+  --shadow-soft:  0 16px 38px rgba(0, 0, 0, 0.4);
+  --shadow-float: 0 24px 54px rgba(0, 0, 0, 0.45);
+
+  /* Misc */
+  --hero-glow:
+    radial-gradient(circle at 12% 8%,  rgba(99, 164, 255, 0.2),  transparent 35%),
+    radial-gradient(circle at 92% 14%, rgba(45, 212, 191, 0.15), transparent 36%);
+}

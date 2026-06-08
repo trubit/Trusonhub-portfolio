@@ -1,0 +1,171 @@
+.app-root {
+  min-height: 100vh;
+  /* No overflow set here. overflow-x on a div makes it an internal scroll
+     container — on mobile WebKit this breaks position:sticky touch routing.
+     Horizontal clipping is handled at body level instead (see base.css). */
+}
+
+.page-shell {
+  padding: 0 0 4rem;
+}
+
+/* Dashboard takes full viewport — no outer padding */
+.page-shell:has(.dashboard-root) {
+  padding: 0;
+}
+
+.portfolio-container {
+  width: min(100%, 1240px);
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.1rem;
+}
+
+.contact-message {
+  grid-column: 1 / -1;
+}
+
+.section-space {
+  margin-top: 1.3rem;
+  margin-bottom: 1.3rem;
+}
+
+.section-header {
+  margin-bottom: 1rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.value-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.45fr minmax(220px, 0.85fr);
+  gap: 1.2rem;
+  align-items: stretch;
+}
+
+.process-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 1rem;
+  align-items: center;
+}
+
+.contact-layout {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (max-width: 599px) {
+  .page-shell {
+    padding: 0 0 2.2rem;
+  }
+
+  .portfolio-container {
+    padding-inline: 0.2rem;
+  }
+
+  .section-space {
+    margin-top: 0.9rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .project-grid,
+  .stats-grid,
+  .value-grid {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .contact-grid,
+  .hero-grid,
+  .process-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 1023px) {
+  .page-shell {
+    padding-top: 0;
+    padding-bottom: 3rem;
+  }
+
+  .portfolio-container {
+    padding-inline: 0.5rem;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .value-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .process-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .page-shell {
+    padding-top: 0;
+  }
+
+  .portfolio-container {
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .portfolio-container {
+    max-width: 1380px;
+  }
+
+  .page-shell {
+    padding-top: 0;
+  }
+}
+
+@media (min-width: 1920px) {
+  .portfolio-container {
+    max-width: 1700px;
+  }
+
+  .page-shell {
+    padding-top: 0;
+    padding-bottom: 4.8rem;
+  }
+}
+
+@media (min-width: 2400px) {
+  .portfolio-container {
+    max-width: 1920px;
+  }
+}

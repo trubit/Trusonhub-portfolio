@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700&display=swap");
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--text-main);
+  font-family: "Manrope", "Sora", "Helvetica Neue", sans-serif;
+  background:
+    var(--hero-glow),
+    linear-gradient(180deg, var(--bg-page) 0%, var(--bg-soft) 100%);
+  transition: background 0.35s ease, color 0.35s ease;
+  overflow-x: hidden; /* viewport-level horizontal clip — does not create inner scroll container */
+}
+
+a {
+  color: var(--brand-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a,
+button,
+[role="button"],
+[type="button"],
+[type="submit"],
+.btn,
+.nav-link,
+.navbar-toggler {
+  touch-action: manipulation;
+}
