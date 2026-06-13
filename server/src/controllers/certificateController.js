@@ -2,7 +2,8 @@ import Certificate from "../models/Certificate.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
 export const getCertificates = asyncHandler(async (_req, res) => {
-  const certs = await Certificate.find().sort({ order: 1, createdAt: -1 });
+  const certs = await Certificate.find().sort({ order: 1, createdAt: -1 }).lean();
+  res.setHeader("Cache-Control", "public, max-age=600, stale-while-revalidate=60");
   res.json(certs);
 });
 

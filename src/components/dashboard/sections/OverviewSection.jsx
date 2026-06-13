@@ -52,7 +52,7 @@ export const OverviewSection = () => {
 
       <div className="cms-card">
         <div className="cms-card-title">Quick Actions</div>
-        <Stack direction="row" flexWrap="wrap" gap={1.5}>
+        <Stack direction="row" sx={{ flexWrap: "wrap", gap: 1.5 }}>
           <Button variant="contained" startIcon={<FolderIcon />} onClick={() => setSection(DASHBOARD_SECTIONS.PROJECTS)}>
             Manage Projects
           </Button>
@@ -70,7 +70,7 @@ export const OverviewSection = () => {
 
       <div className="cms-card">
         <div className="cms-card-title">Public Site Links</div>
-        <Stack direction="row" flexWrap="wrap" gap={1}>
+        <Stack direction="row" sx={{ flexWrap: "wrap", gap: 1 }}>
           {[
             { label: "Home", to: "/" },
             { label: "About", to: "/about" },

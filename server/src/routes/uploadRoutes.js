@@ -20,7 +20,10 @@ router.post("/project-media", protect, requireAdmin, upload.single("file"), uplo
 router.post("/media/image", protect, requireAdmin, upload.single("file"), uploadMediaImage);
 router.post("/media/video", protect, requireAdmin, upload.single("file"), uploadMediaVideo);
 router.post("/media/document", protect, requireAdmin, upload.single("file"), uploadMediaDocument);
-router.get("/media/file/:id", getMediaAsset);
+// X-Frame-Options: DENY (set globally by helmet) blocks this file from being
+// embedded in an <iframe>.  Remove it for the file-serving endpoint only so
+// the admin CV/resume preview works while every other route stays protected.
+router.get("/media/file/:id", (_req, res, next) => { res.removeHeader("X-Frame-Options"); next(); }, getMediaAsset);
 router.delete("/media", protect, requireAdmin, deleteMediaAsset);
 
 export default router;

@@ -18,12 +18,13 @@ const toStringArray = (value) =>
     : [];
 
 export const getPublicBlogPosts = asyncHandler(async (_req, res) => {
-  const posts = await BlogPost.find({ published: true }).sort({ publishedAt: -1, createdAt: -1 });
+  const posts = await BlogPost.find({ published: true }).sort({ publishedAt: -1, createdAt: -1 }).lean();
+  res.setHeader("Cache-Control", "public, max-age=300, stale-while-revalidate=60");
   res.json(posts);
 });
 
 export const getAdminBlogPosts = asyncHandler(async (_req, res) => {
-  const posts = await BlogPost.find().sort({ updatedAt: -1 });
+  const posts = await BlogPost.find().sort({ updatedAt: -1 }).lean();
   res.json(posts);
 });
 

@@ -268,7 +268,7 @@ export const RecordDemoModal = ({ open, onClose, onUploaded }) => {
           {error && <Alert severity="error">{error}</Alert>}
 
           {/* Controls */}
-          <Stack direction="row" spacing={1} flexWrap="wrap" justifyContent="center">
+          <Stack direction="row" spacing={1} sx={{ flexWrap: "wrap", justifyContent: "center" }}>
             {phase === "idle" && (
               <Button
                 variant="contained"

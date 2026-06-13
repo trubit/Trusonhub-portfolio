@@ -162,11 +162,11 @@ export const ResumePage = () => {
                 </p>
                 <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
                   {profileData.recruiterSummary.map((item) => (
-                    <div key={item.label} style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
-                      <span style={{ color: "var(--text-muted)", fontSize: "0.78rem", fontWeight: 800, minWidth: 100 }}>
+                    <div key={item.label} style={{ display: "flex", flexWrap: "wrap", gap: "0.25rem 0.75rem", alignItems: "center" }}>
+                      <span style={{ color: "var(--text-muted)", fontSize: "0.78rem", fontWeight: 800, minWidth: 80, flexShrink: 0 }}>
                         {item.label}
                       </span>
-                      <span style={{ color: "var(--text-main)", fontSize: "0.88rem", fontWeight: 700 }}>
+                      <span style={{ color: "var(--text-main)", fontSize: "0.88rem", fontWeight: 700, minWidth: 0 }}>
                         {item.value}
                       </span>
                     </div>

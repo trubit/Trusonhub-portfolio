@@ -48,5 +48,8 @@ const blogPostSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
+blogPostSchema.index({ published: 1, publishedAt: -1 });
+blogPostSchema.index({ updatedAt: -1 });
+
 const BlogPost = mongoose.model("BlogPost", blogPostSchema);
 export default BlogPost;

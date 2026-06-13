@@ -87,6 +87,8 @@ const mediaCenterSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
+mediaCenterSchema.index({ createdAt: 1 });
+
 const MediaCenter = mongoose.model("MediaCenter", mediaCenterSchema);
 
 export default MediaCenter;

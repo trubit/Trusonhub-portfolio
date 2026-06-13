@@ -13,7 +13,7 @@ export const useAuth = () => {
     queryKey: ["auth", "me"],
     queryFn: meRequest,
     enabled: Boolean(token),
-    retry: 1,
+    retry: false,
   });
 
   useEffect(() => {
@@ -21,6 +21,16 @@ export const useAuth = () => {
       setUser(meQuery.data.user);
     }
   }, [meQuery.data?.user, setUser]);
+
+  useEffect(() => {
+    if (meQuery.isError) {
+      const status = meQuery.error?.response?.status;
+      if (status === 401 || status === 403) {
+        clearAuth();
+        queryClient.clear();
+      }
+    }
+  }, [meQuery.isError, meQuery.error, clearAuth, queryClient]);
 
   return {
     token,

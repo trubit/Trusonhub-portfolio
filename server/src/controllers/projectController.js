@@ -2,12 +2,13 @@ import Project from "../models/Project.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
 export const getPublicProjects = asyncHandler(async (_req, res) => {
-  const projects = await Project.find().sort({ featured: -1, updatedAt: -1 });
+  const projects = await Project.find().sort({ featured: -1, updatedAt: -1 }).lean();
+  res.setHeader("Cache-Control", "public, max-age=300, stale-while-revalidate=60");
   res.json(projects);
 });
 
 export const getMyProjects = asyncHandler(async (req, res) => {
-  const projects = await Project.find({ user: req.user._id }).sort({ updatedAt: -1 });
+  const projects = await Project.find({ user: req.user._id }).sort({ updatedAt: -1 }).lean();
   res.json(projects);
 });
 

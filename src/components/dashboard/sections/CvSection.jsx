@@ -93,11 +93,16 @@ export const CvSection = () => {
 
       {cvPdf && (
         <div className="cms-card">
-          <div className="cms-card-title">CV Preview</div>
+          <div className="cms-card-title" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            CV Preview
+            <Button size="small" variant="outlined" startIcon={<DownloadIcon />} href={cvPdf} target="_blank" rel="noreferrer" component="a">
+              Open in new tab
+            </Button>
+          </div>
           <iframe
             src={cvPdf}
             title="CV preview"
-            style={{ width: "100%", height: 600, borderRadius: 10, border: "1px solid #e2e8f0" }}
+            style={{ width: "100%", height: 600, borderRadius: 10, border: "1px solid #e2e8f0", marginTop: 8 }}
           />
         </div>
       )}

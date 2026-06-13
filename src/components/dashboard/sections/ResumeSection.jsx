@@ -93,11 +93,16 @@ export const ResumeSection = () => {
 
       {resumePdf && (
         <div className="cms-card">
-          <div className="cms-card-title">Resume Preview</div>
+          <div className="cms-card-title" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            Resume Preview
+            <Button size="small" variant="outlined" startIcon={<DownloadIcon />} href={resumePdf} target="_blank" rel="noreferrer" component="a">
+              Open in new tab
+            </Button>
+          </div>
           <iframe
             src={resumePdf}
             title="Resume preview"
-            style={{ width: "100%", height: 600, borderRadius: 10, border: "1px solid #e2e8f0" }}
+            style={{ width: "100%", height: 600, borderRadius: 10, border: "1px solid #e2e8f0", marginTop: 8 }}
           />
         </div>
       )}

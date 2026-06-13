@@ -15,26 +15,20 @@ const toBoolean = (value, fallback = false) => {
 };
 
 export const getPublicProfile = asyncHandler(async (_req, res) => {
-  const user = await User.findOne().sort({ createdAt: 1 }).select("-password");
+  const user = await User.findOne().sort({ createdAt: 1 }).select("-password").lean();
   if (!user) {
-    res.json({
-      user: null,
-      profile: null,
-      featuredProjects: [],
-    });
+    res.setHeader("Cache-Control", "public, max-age=60");
+    res.json({ user: null, profile: null, featuredProjects: [] });
     return;
   }
 
-  const profile = await Profile.findOne({ user: user._id });
-  const featuredProjects = await Project.find({ user: user._id, featured: true }).sort({
-    updatedAt: -1,
-  });
+  const [profile, featuredProjects] = await Promise.all([
+    Profile.findOne({ user: user._id }).lean(),
+    Project.find({ user: user._id, featured: true }).sort({ updatedAt: -1 }).lean(),
+  ]);
 
-  res.json({
-    user,
-    profile,
-    featuredProjects,
-  });
+  res.setHeader("Cache-Control", "public, max-age=300, stale-while-revalidate=60");
+  res.json({ user, profile, featuredProjects });
 });
 
 export const getMyProfile = asyncHandler(async (req, res) => {

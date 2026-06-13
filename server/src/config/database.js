@@ -19,6 +19,12 @@ export const connectToDatabase = async () => {
   }
 
   mongoose.set("strictQuery", true);
-  await mongoose.connect(mongoUri);
+  await mongoose.connect(mongoUri, {
+    maxPoolSize: 100,        // handle bursts of concurrent requests
+    minPoolSize: 10,         // keep connections warm
+    maxIdleTimeMS: 45_000,   // recycle idle connections after 45 s
+    socketTimeoutMS: 45_000,
+    serverSelectionTimeoutMS: 10_000,
+  });
   console.log("MongoDB connected");
 };

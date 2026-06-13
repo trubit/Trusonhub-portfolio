@@ -5,9 +5,9 @@ import compression from "compression";
 import cors from "cors";
 import express from "express";
 import helmet from "helmet";
-import hpp from "hpp";
 import mongoose from "mongoose";
 import morgan from "morgan";
+import rateLimit from "express-rate-limit";
 
 import { connectToDatabase } from "./src/config/database.js";
 import authRoutes from "./src/routes/authRoutes.js";
@@ -32,7 +32,9 @@ const allowList = (process.env.CLIENT_URL || "http://localhost:5173,http://local
   .filter(Boolean);
 
 const isLocalDevOrigin = (origin) =>
-  /^http:\/\/localhost:\d{2,5}$/i.test(origin) || /^http:\/\/127\.0\.0\.1:\d{2,5}$/i.test(origin);
+  /^http:\/\/localhost:\d{2,5}$/i.test(origin) ||
+  /^http:\/\/127\.0\.0\.1:\d{2,5}$/i.test(origin) ||
+  /^http:\/\/(10\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}|172\.(1[6-9]|2\d|3[01])\.\d{1,3})\.\d{1,3}:\d{2,5}$/.test(origin);
 
 app.use(
   cors({
@@ -56,14 +58,33 @@ app.use(
     crossOriginResourcePolicy: { policy: "cross-origin" },
     crossOriginEmbedderPolicy: false,
     contentSecurityPolicy: false,
-    frameguard: false,
+    frameguard: { action: "deny" },
+    hsts: process.env.NODE_ENV === "production"
+      ? { maxAge: 31_536_000, includeSubDomains: true }
+      : false,
   }),
 );
 
-app.use(hpp());
 app.use(compression());
 app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: true }));
+
+// Rate limiting — tight window on auth, relaxed on all other API calls
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { message: "Too many requests, please try again in 15 minutes." },
+});
+
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 200,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { message: "Too many requests, please slow down." },
+});
 
 if (process.env.NODE_ENV !== "test") {
   app.use(morgan("dev"));
@@ -78,16 +99,16 @@ app.get("/api/health", (_req, res) => {
   });
 });
 
-app.use("/api/auth", authRoutes);
-app.use("/api/profile", profileRoutes);
-app.use("/api/projects", projectRoutes);
-app.use("/api/blog", blogRoutes);
-app.use("/api/project-media", projectMediaRoutes);
-app.use("/api/contact", contactRoutes);
-app.use("/api/media", mediaRoutes);
-app.use("/api/uploads", uploadRoutes);
-app.use("/api/certificates", certificateRoutes);
-app.use("/api/testimonials", testimonialRoutes);
+app.use("/api/auth", authLimiter, authRoutes);
+app.use("/api/profile", apiLimiter, profileRoutes);
+app.use("/api/projects", apiLimiter, projectRoutes);
+app.use("/api/blog", apiLimiter, blogRoutes);
+app.use("/api/project-media", apiLimiter, projectMediaRoutes);
+app.use("/api/contact", authLimiter, contactRoutes);
+app.use("/api/media", apiLimiter, mediaRoutes);
+app.use("/api/uploads", apiLimiter, uploadRoutes);
+app.use("/api/certificates", apiLimiter, certificateRoutes);
+app.use("/api/testimonials", apiLimiter, testimonialRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

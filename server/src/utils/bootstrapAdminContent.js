@@ -79,7 +79,13 @@ const toSlug = (input = "") =>
 export const bootstrapAdminContent = async (user) => {
   const userId = user._id;
 
-  const profile = await Profile.findOne({ user: userId });
+  // Run the three read checks in parallel
+  const [profile, projectCount, blogCount] = await Promise.all([
+    Profile.findOne({ user: userId }).lean(),
+    Project.countDocuments({ user: userId }),
+    BlogPost.countDocuments(),
+  ]);
+
   const hasProfileContent =
     profile &&
     (profile.brandStatement ||
@@ -87,73 +93,76 @@ export const bootstrapAdminContent = async (user) => {
       profile.services?.length ||
       profile.desiredRoles?.length);
 
-  if (!hasProfileContent) {
-    await Profile.findOneAndUpdate(
-      { user: userId },
-      {
-        $set: {
-          brandStatement: SEED_PROFILE.professionalSummary,
-          availability: "open",
-          timezone: "Africa/Lagos",
-          yearsOfExperience: 3,
-          desiredRoles: ["Full Stack Developer"],
-          jobSearchStatus: "actively-looking",
-          preferredWorkModes: ["remote", "hybrid", "on-site"],
-          targetRegions: ["International", "Remote"],
-          requiresVisaSponsorship: true,
-          willingToRelocate: true,
-          languages: ["English"],
-          skills: SEED_PROFILE.skills,
-          services: SEED_PROFILE.services,
-          socialLinks: {
-            linkedin: SEED_PROFILE.linkedin,
-            github: SEED_PROFILE.github,
-            x: "",
-            website: "",
+  // Run all seeding writes in parallel (each is a no-op when content exists)
+  await Promise.all([
+    !hasProfileContent
+      ? Profile.findOneAndUpdate(
+          { user: userId },
+          {
+            $set: {
+              brandStatement: SEED_PROFILE.professionalSummary,
+              availability: "open",
+              timezone: "Africa/Lagos",
+              yearsOfExperience: 3,
+              desiredRoles: ["Full Stack Developer"],
+              jobSearchStatus: "actively-looking",
+              preferredWorkModes: ["remote", "hybrid", "on-site"],
+              targetRegions: ["International", "Remote"],
+              requiresVisaSponsorship: true,
+              willingToRelocate: true,
+              languages: ["English"],
+              skills: SEED_PROFILE.skills,
+              services: SEED_PROFILE.services,
+              socialLinks: {
+                linkedin: SEED_PROFILE.linkedin,
+                github: SEED_PROFILE.github,
+                x: "",
+                website: "",
+              },
+            },
           },
-        },
-      },
-      { returnDocument: "after", upsert: true, setDefaultsOnInsert: true },
-    );
-  }
+          { returnDocument: "after", upsert: true, setDefaultsOnInsert: true },
+        )
+      : Promise.resolve(),
 
-  if (!user.headline || !user.location || !user.phoneNumber) {
-    user.fullName = user.fullName || SEED_PROFILE.fullName;
-    user.headline = user.headline || SEED_PROFILE.headline;
-    user.location = user.location || SEED_PROFILE.location;
-    user.phoneNumber = user.phoneNumber || SEED_PROFILE.phone;
-    await user.save();
-  }
+    (async () => {
+      if (!user.headline || !user.location || !user.phoneNumber) {
+        user.fullName = user.fullName || SEED_PROFILE.fullName;
+        user.headline = user.headline || SEED_PROFILE.headline;
+        user.location = user.location || SEED_PROFILE.location;
+        user.phoneNumber = user.phoneNumber || SEED_PROFILE.phone;
+        await user.save();
+      }
+    })(),
 
-  const projectCount = await Project.countDocuments({ user: userId });
-  if (projectCount === 0) {
-    await Project.insertMany(
-      SEED_PROFILE.projects.map((project, index) => ({
-        user: userId,
-        title: project.title,
-        summary: project.summary,
-        techStack: SEED_PROFILE.technologyStack,
-        repoUrl: "",
-        liveUrl: "",
-        coverImageUrl: "",
-        featured: index === 0,
-      })),
-    );
-  }
+    projectCount === 0
+      ? Project.insertMany(
+          SEED_PROFILE.projects.map((project, index) => ({
+            user: userId,
+            title: project.title,
+            summary: project.summary,
+            techStack: SEED_PROFILE.technologyStack,
+            repoUrl: "",
+            liveUrl: "",
+            coverImageUrl: "",
+            featured: index === 0,
+          })),
+        )
+      : Promise.resolve(),
 
-  const blogCount = await BlogPost.countDocuments();
-  if (blogCount === 0) {
-    await BlogPost.insertMany(
-      SEED_PROFILE.blogTopics.map((title) => ({
-        title,
-        slug: toSlug(title),
-        excerpt: title,
-        content: `${title}\n\nDraft this article from the admin dashboard.`,
-        tags: ["Full Stack", "Engineering"],
-        published: true,
-        publishedAt: new Date(),
-        createdBy: userId,
-      })),
-    );
-  }
+    blogCount === 0
+      ? BlogPost.insertMany(
+          SEED_PROFILE.blogTopics.map((title) => ({
+            title,
+            slug: toSlug(title),
+            excerpt: title,
+            content: `${title}\n\nDraft this article from the admin dashboard.`,
+            tags: ["Full Stack", "Engineering"],
+            published: true,
+            publishedAt: new Date(),
+            createdBy: userId,
+          })),
+        )
+      : Promise.resolve(),
+  ]);
 };

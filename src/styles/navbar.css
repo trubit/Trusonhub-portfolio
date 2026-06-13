@@ -200,7 +200,12 @@
     background: linear-gradient(180deg, rgba(5, 12, 28, 0.99), rgba(6, 45, 60, 0.98));
   }
 
+  /* Allow the collapse to wrap BELOW the brand+toggle row. Without flex-wrap the
+     collapse appears beside the toggle in the same row (display:flex default). */
   .elite-navbar-inner {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
     min-height: 68px;
   }
 
@@ -217,18 +222,30 @@
   }
 
   .elite-navbar-collapse {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.75rem;
-    margin-top: 0.8rem;
+    /* flex-basis: 100% forces this item onto its own line in the wrapping container */
+    flex-basis: 100%;
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin-top: 0;
     border: 1px solid var(--border-soft);
-    border-radius: 14px;
+    border-top: none;
+    border-radius: 0 0 14px 14px;
     padding: 0.8rem;
     background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-soft) 100%);
     /* Ensure collapse is its own layer, above all page content */
     position: relative;
     z-index: 1201;
     isolation: isolate;
+  }
+
+  /* Bootstrap's .collapse.show { display: block } has specificity 0,2,0 which beats our
+     .elite-navbar-collapse { display: flex } at 0,1,0. Override it so the collapse is
+     flex when open, giving us column layout + gap between nav links and actions. */
+  .elite-navbar-collapse.show {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
   }
 
   .elite-navbar-center {

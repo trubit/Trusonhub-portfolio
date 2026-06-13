@@ -2,7 +2,8 @@ import Testimonial from "../models/Testimonial.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
 export const getTestimonials = asyncHandler(async (_req, res) => {
-  const testimonials = await Testimonial.find().sort({ featured: -1, order: 1, createdAt: -1 });
+  const testimonials = await Testimonial.find().sort({ featured: -1, order: 1, createdAt: -1 }).lean();
+  res.setHeader("Cache-Control", "public, max-age=600, stale-while-revalidate=60");
   res.json(testimonials);
 });
 

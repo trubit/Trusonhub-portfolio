@@ -136,7 +136,7 @@ const RenderSection = ({ sectionKey }) => {
                   <Typography>{profileData.phone}</Typography>
                 </div>
               </div>
-              <Stack direction="row" spacing={1} flexWrap="wrap">
+              <Stack direction="row" spacing={1} sx={{ flexWrap: "wrap" }}>
                 <Button
                   size="small"
                   variant="text"

@@ -284,7 +284,7 @@ export const ProjectSection = () => {
                 )}
               </div>
               <div className="project-cms-card-meta">{project.summary}</div>
-              <Stack direction="row" flexWrap="wrap" gap={0.5} sx={{ mb: 1 }}>
+              <Stack direction="row" sx={{ flexWrap: "wrap", gap: 0.5, mb: 1 }}>
                 {(project.techStack || []).map((t) => <Chip key={t} label={t} size="small" />)}
                 {project.featured && <Chip label="⭐ Featured" size="small" color="primary" />}
               </Stack>
@@ -528,7 +528,7 @@ export const ProjectSection = () => {
               </Stack>
 
               {/* Upload + Record buttons */}
-              <Stack direction="row" spacing={1} flexWrap="wrap">
+              <Stack direction="row" spacing={1} sx={{ flexWrap: "wrap" }}>
                 <Button
                   variant="outlined"
                   component="label"

@@ -2102,6 +2102,10 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   }
 
+  .home-stat-item:nth-child(odd) {
+    border-right: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
   .home-stat-item:nth-child(3),
   .home-stat-item:nth-child(4) {
     border-top: none;
@@ -2113,7 +2117,7 @@
 
   .home-hero-socials {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 0.6rem;
   }
 

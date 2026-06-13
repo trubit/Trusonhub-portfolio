@@ -94,8 +94,9 @@ const uploadBufferToCloudinary = async (
   });
 };
 
-const toAbsoluteUrl = (req, relativePath) =>
-  `${req.protocol}://${req.get("host")}${relativePath}`;
+// Store relative paths so the URL works regardless of host/port or deployment origin.
+// The frontend resolves them via VITE_API_URL.
+const toRelativePath = (_req, relativePath) => relativePath;
 
 const mediaStorageDriver = (process.env.MEDIA_STORAGE_DRIVER || "mongodb").toLowerCase();
 const uploadStorageDriver = (process.env.UPLOAD_STORAGE_DRIVER || "mongodb").toLowerCase();
@@ -159,7 +160,7 @@ const uploadMediaAssetByType = async ({ req, file, type }) => {
     assetType: type,
   });
 
-  return toAbsoluteUrl(req, `/api/uploads/media/file/${gridFsId}`);
+  return toRelativePath(req, `/api/uploads/media/file/${gridFsId}`);
 };
 
 const extractCloudinaryPublicIdCandidates = (assetUrl) => {
@@ -315,7 +316,7 @@ export const uploadAvatar = asyncHandler(async (req, res) => {
       mimeType: req.file.mimetype,
       assetType: "avatar",
     });
-    avatarUrl = toAbsoluteUrl(req, `/api/uploads/media/file/${gridFsId}`);
+    avatarUrl = toRelativePath(req, `/api/uploads/media/file/${gridFsId}`);
   }
 
   req.user.avatarUrl = avatarUrl;
@@ -346,7 +347,7 @@ export const uploadProjectMedia = asyncHandler(async (req, res) => {
       mimeType: req.file.mimetype,
       assetType: "project",
     });
-    mediaUrl = toAbsoluteUrl(req, `/api/uploads/media/file/${gridFsId}`);
+    mediaUrl = toRelativePath(req, `/api/uploads/media/file/${gridFsId}`);
   }
 
   res.status(201).json({ url: mediaUrl });

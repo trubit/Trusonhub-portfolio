@@ -62,6 +62,8 @@ const projectSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
+projectSchema.index({ featured: -1, updatedAt: -1 });
+
 const Project = mongoose.model("Project", projectSchema);
 export default Project;
 

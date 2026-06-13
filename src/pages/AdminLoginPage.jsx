@@ -7,7 +7,6 @@ import { loginRequest } from "../api/authApi";
 import { useAuthStore } from "../store/authStore";
 import "../styles/adminLogin.css";
 
-const OWNER_EMAIL = import.meta.env.VITE_ADMIN_EMAIL || "";
 
 export const AdminLoginPage = () => {
   const navigate  = useNavigate();
@@ -18,19 +17,13 @@ export const AdminLoginPage = () => {
   const [loading,  setLoading]  = useState(false);
   const [error,    setError]    = useState("");
 
-  const isOwner = email.trim().toLowerCase() === OWNER_EMAIL;
-
   const onSubmit = async (event) => {
     event.preventDefault();
     setError("");
     setLoading(true);
 
     try {
-      const payload = isOwner
-        ? { email: email.trim() }
-        : { email: email.trim(), password };
-
-      const data = await loginRequest(payload);
+      const data = await loginRequest({ email: email.trim(), password });
       setAuth({ token: data.token, user: data.user });
       navigate("/dashboard", { replace: true });
     } catch (err) {
@@ -68,26 +61,17 @@ export const AdminLoginPage = () => {
               autoComplete="email"
             />
 
-            {/* Password field — hidden for owner email, required for everyone else */}
-            {!isOwner && (
-              <Form.Control
-                aria-label="Password"
-                className="admin-login-input"
-                name="password"
-                placeholder="Password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                autoComplete="current-password"
-              />
-            )}
-
-            {isOwner && (
-              <p className="admin-login-owner-note">
-                ✓ Owner account — no password required
-              </p>
-            )}
+            <Form.Control
+              aria-label="Password"
+              className="admin-login-input"
+              name="password"
+              placeholder="Password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              autoComplete="current-password"
+            />
 
             <Button
               className="admin-login-button"

@@ -48,5 +48,7 @@ const certificateSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
+certificateSchema.index({ order: 1, createdAt: -1 });
+
 const Certificate = mongoose.model("Certificate", certificateSchema);
 export default Certificate;
