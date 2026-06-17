@@ -12,19 +12,19 @@ import "../styles/pages.css";
 const PRINCIPLES = [
   {
     label: "Security-First",
-    desc: "Auth, validation, and OWASP hardening are foundational decisions — not bolted on at the end.",
+    desc: "JWT authentication, secure endpoints, data validation, and rate limiting are foundational — built into every API, not bolted on at the end.",
   },
   {
     label: "Architecture-First",
-    desc: "I design for scale before writing the first line of code, not after the codebase needs refactoring.",
+    desc: "I design database schemas, API surfaces, and module boundaries before writing the first line of code — not after the codebase needs refactoring.",
   },
   {
     label: "Production-Grade Defaults",
-    desc: "Logging, health checks, graceful shutdown, and environment separation come with every deployment.",
+    desc: "Docker containerisation, health checks, graceful shutdown, environment separation, and comprehensive error handling ship with every deployment.",
   },
   {
     label: "Autonomous & Async",
-    desc: "Self-directed remote work. I scope accurately, communicate proactively, and deliver on schedule.",
+    desc: "Three years of fully remote, self-directed engineering. I scope accurately, communicate proactively, and deliver on schedule without micromanagement.",
   },
 ];
 
@@ -168,8 +168,32 @@ export const AboutPage = () => {
         </Container>
       </section>
 
-      {/* ── Core Skills ── */}
+      {/* ── Key Strengths ── */}
       <section className="pp-section pp-section--alt">
+        <Container>
+          <div className="pp-section-header">
+            <p className="pp-section-eyebrow">What I Bring</p>
+            <h2 className="pp-section-title">Key strengths</h2>
+            <p className="pp-section-sub">
+              The specific capabilities and traits that consistently drive results across every project.
+            </p>
+          </div>
+          <Row className="g-3">
+            {profileData.keyStrengths.map((s) => (
+              <Col sm={6} lg={4} key={s.label}>
+                <div className="pp-card pp-card--hoverable" style={{ height: "100%", padding: "1.2rem 1.1rem" }}>
+                  <div style={{ fontSize: "1.5rem", marginBottom: "0.6rem" }}>{s.icon}</div>
+                  <p style={{ margin: "0 0 0.32rem", color: "var(--text-main)", fontWeight: 850, fontSize: "0.9rem" }}>{s.label}</p>
+                  <p style={{ margin: 0, color: "var(--text-muted)", fontSize: "0.8rem", lineHeight: 1.62 }}>{s.desc}</p>
+                </div>
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      </section>
+
+      {/* ── Core Skills ── */}
+      <section className="pp-section">
         <Container>
           <div className="pp-section-header">
             <p className="pp-section-eyebrow">Competencies</p>
@@ -256,6 +280,34 @@ export const AboutPage = () => {
                 ))}
               </div>
             </Col>
+          </Row>
+        </Container>
+      </section>
+
+      {/* ── Why Hire Me ── */}
+      <section className="pp-section pp-section--alt">
+        <Container>
+          <div className="pp-section-header">
+            <p className="pp-section-eyebrow">Why Choose Me</p>
+            <h2 className="pp-section-title">Why hire me</h2>
+            <p className="pp-section-sub">
+              The technical capabilities and professional traits that make a real difference on your team.
+            </p>
+          </div>
+          <Row className="g-3">
+            {profileData.whyHireMe.map((item) => (
+              <Col md={6} lg={4} key={item.headline}>
+                <div className="pp-card pp-card--hoverable" style={{ height: "100%", padding: "1.2rem 1.4rem" }}>
+                  <div style={{
+                    display: "inline-block", padding: "0.22rem 0.65rem", borderRadius: 999,
+                    background: "rgba(20,184,166,0.1)", color: "#0f766e",
+                    fontSize: "0.72rem", fontWeight: 800, marginBottom: "0.65rem",
+                  }}>{item.metric}</div>
+                  <p style={{ margin: "0 0 0.35rem", color: "var(--text-main)", fontWeight: 850, fontSize: "0.92rem" }}>{item.headline}</p>
+                  <p style={{ margin: 0, color: "var(--text-muted)", fontSize: "0.8rem", lineHeight: 1.65 }}>{item.body}</p>
+                </div>
+              </Col>
+            ))}
           </Row>
         </Container>
       </section>

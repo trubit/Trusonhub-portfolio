@@ -5,6 +5,7 @@ import compression from "compression";
 import cors from "cors";
 import express from "express";
 import helmet from "helmet";
+import hpp from "hpp";
 import mongoose from "mongoose";
 import morgan from "morgan";
 import rateLimit from "express-rate-limit";
@@ -68,6 +69,7 @@ app.use(
 app.use(compression());
 app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: true }));
+app.use(hpp());
 
 // Rate limiting — tight window on auth, relaxed on all other API calls
 const authLimiter = rateLimit({
@@ -84,6 +86,16 @@ const apiLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   message: { message: "Too many requests, please slow down." },
+});
+
+// Contact form: generous enough for genuine users retrying on errors,
+// but tight enough to block spam bots.
+const contactLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 30,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { message: "Too many messages sent. Please try again in 15 minutes." },
 });
 
 if (process.env.NODE_ENV !== "test") {
@@ -104,7 +116,7 @@ app.use("/api/profile", apiLimiter, profileRoutes);
 app.use("/api/projects", apiLimiter, projectRoutes);
 app.use("/api/blog", apiLimiter, blogRoutes);
 app.use("/api/project-media", apiLimiter, projectMediaRoutes);
-app.use("/api/contact", authLimiter, contactRoutes);
+app.use("/api/contact", contactLimiter, contactRoutes);
 app.use("/api/media", apiLimiter, mediaRoutes);
 app.use("/api/uploads", apiLimiter, uploadRoutes);
 app.use("/api/certificates", apiLimiter, certificateRoutes);
@@ -114,6 +126,10 @@ app.use(notFound);
 app.use(errorHandler);
 
 const startServer = async () => {
+  if (!process.env.ADMIN_PASSWORD) {
+    console.error("FATAL: ADMIN_PASSWORD environment variable is not set. Set it in .env or your hosting platform.");
+    process.exit(1);
+  }
   await connectToDatabase();
   app.listen(port, () => {
     console.log(`API running on http://localhost:${port}`);

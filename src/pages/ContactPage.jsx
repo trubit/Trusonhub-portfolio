@@ -252,7 +252,7 @@ export const ContactPage = () => {
                 </p>
                 <div className="pp-avail-chips">
                   <span className="pp-avail-chip pp-avail-chip--green">● Open to Work</span>
-                  <span className="pp-avail-chip pp-avail-chip--blue">Remote Only</span>
+                  <span className="pp-avail-chip pp-avail-chip--blue">Remote | Hybrid | On-site</span>
                   <span className="pp-avail-chip pp-avail-chip--teal">International Roles</span>
                 </div>
                 <p style={{ margin: "0.9rem 0 0", color: "var(--text-muted)", fontSize: "0.8rem", lineHeight: 1.62 }}>

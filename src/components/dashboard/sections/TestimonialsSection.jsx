@@ -113,7 +113,7 @@ export const TestimonialsSection = () => {
               <div style={{ fontSize: "0.82rem", color: "#64748b" }}>{t.role} {t.company ? `· ${t.company}` : ""}</div>
               <p className="testimonial-quote">"{t.quote}"</p>
             </div>
-            <Stack direction="column" gap={1} flexShrink={0}>
+            <Stack direction="column" sx={{ gap: 1, flexShrink: 0 }}>
               <Button size="small" variant="outlined" startIcon={<EditIcon />} onClick={() => openEdit(t)}>Edit</Button>
               <Button size="small" color="error" variant="outlined" startIcon={<DeleteIcon />} onClick={() => deleteMut.mutate(t._id)} disabled={deleteMut.isPending}>Delete</Button>
             </Stack>

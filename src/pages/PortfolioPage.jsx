@@ -9,7 +9,7 @@ import "../styles/pages.css";
 const STATS = [
   { value: "3+",   label: "Years Building",  sub: "Full-stack" },
   { value: "15+",  label: "Apps Shipped",    sub: "End-to-end" },
-  { value: "31",   label: "Technologies",    sub: "In active use" },
+  { value: `${profileData.technologyStack.length}`, label: "Technologies", sub: "In active use" },
   { value: "100%", label: "Remote",          sub: "International ready" },
 ];
 
@@ -36,10 +36,11 @@ export const PortfolioPage = () => {
             <Button as={Link} to="/contact" className="pp-btn pp-btn--outline btn">Hire Me</Button>
           </div>
           <div className="pp-hero-chips">
-            <span className="pp-hero-chip">React 19</span>
+            <span className="pp-hero-chip">React.js</span>
             <span className="pp-hero-chip">Node.js</span>
             <span className="pp-hero-chip">MongoDB</span>
-            <span className="pp-hero-chip">REST APIs</span>
+            <span className="pp-hero-chip">Stripe</span>
+            <span className="pp-hero-chip">Docker</span>
           </div>
         </div>
       </section>

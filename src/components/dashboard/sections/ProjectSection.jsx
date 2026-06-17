@@ -294,7 +294,7 @@ export const ProjectSection = () => {
               </Stack>
             </div>
 
-            <Stack direction="row" gap={1} flexShrink={0}>
+            <Stack direction="row" sx={{ gap: 1, flexShrink: 0 }}>
               <Button size="small" variant="outlined" startIcon={<EditIcon />} onClick={() => { setEditing(project); setOpen(true); }}>
                 Edit
               </Button>

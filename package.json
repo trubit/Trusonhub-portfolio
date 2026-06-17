@@ -13,6 +13,7 @@
     "client": "vite",
     "server": "nodemon server/index.js",
     "start": "node server/cluster.js",
+    "prebuild": "node -e \"const fs=require('fs');const e=fs.existsSync('.env.production')?fs.readFileSync('.env.production','utf8'):'';if(e.includes('YOUR_BACKEND_DOMAIN')){console.error('ERROR: Replace YOUR_BACKEND_DOMAIN in .env.production before building.');process.exit(1)}\"",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"

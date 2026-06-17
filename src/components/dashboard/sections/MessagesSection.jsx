@@ -57,7 +57,7 @@ export const MessagesSection = () => {
               </div>
               <Typography variant="body2" sx={{ mt: 0.5 }}>{msg.message}</Typography>
             </div>
-            <Stack direction="row" gap={1} flexShrink={0}>
+            <Stack direction="row" sx={{ gap: 1, flexShrink: 0 }}>
               <Button
                 size="small"
                 variant="outlined"

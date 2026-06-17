@@ -105,7 +105,7 @@ export const CertificatesSection = () => {
             {cert.description && <div style={{ fontSize: "0.8rem", marginTop: 4 }}>{cert.description}</div>}
             {cert.credentialUrl && <a href={cert.credentialUrl} target="_blank" rel="noreferrer" style={{ fontSize: "0.8rem" }}>View credential ↗</a>}
           </div>
-          <Stack direction="column" gap={1} flexShrink={0}>
+          <Stack direction="column" sx={{ gap: 1, flexShrink: 0 }}>
             <Button size="small" variant="outlined" startIcon={<EditIcon />} onClick={() => openEdit(cert)}>Edit</Button>
             <Button size="small" color="error" variant="outlined" startIcon={<DeleteIcon />} onClick={() => deleteMut.mutate(cert._id)} disabled={deleteMut.isPending}>Delete</Button>
           </Stack>

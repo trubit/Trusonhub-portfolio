@@ -15,7 +15,7 @@ const SERVICES = [
       </svg>
     ),
     title: "System Architecture",
-    desc: "Design scalable, distributed back-end systems with service separation, queues, and resilience built in from day one.",
+    desc: "System design from scratch, microservices, scalability planning, API design, database architecture, MVC patterns, modular code structure.",
   },
   {
     accent: "blue",
@@ -24,8 +24,8 @@ const SERVICES = [
         <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
       </svg>
     ),
-    title: "API Security & Auth",
-    desc: "JWT, OAuth2, RBAC, and rate-limiting hardened into every endpoint. Secure by default, not an afterthought.",
+    title: "API Development & Security",
+    desc: "RESTful API design, JWT token authentication and management, secure endpoints, rate limiting, error handling, data validation.",
   },
   {
     accent: "green",
@@ -34,8 +34,8 @@ const SERVICES = [
         <rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/>
       </svg>
     ),
-    title: "Payment Integration",
-    desc: "Stripe, Paystack, and webhook-driven billing flows for SaaS platforms, marketplaces, and subscription products.",
+    title: "Payment Processing",
+    desc: "Stripe API integration, payment workflows, transaction handling, secure payment processing, PCI compliance awareness, webhook management.",
   },
   {
     accent: "orange",
@@ -45,7 +45,7 @@ const SERVICES = [
       </svg>
     ),
     title: "Real-Time Systems",
-    desc: "WebSocket, Socket.IO, and event-driven pipelines for live dashboards, collaborative apps, and push notifications.",
+    desc: "WebSockets, event-driven architecture, real-time data synchronisation, live updates, instant notifications.",
   },
   {
     accent: "purple",
@@ -55,7 +55,7 @@ const SERVICES = [
       </svg>
     ),
     title: "Frontend Development",
-    desc: "React 19, responsive layouts, accessible UI components, and performance-optimised SPA/MPA applications.",
+    desc: "React.js, TypeScript, JavaScript ES6+, React Query, Redux, responsive design, production-grade user interfaces.",
   },
   {
     accent: "teal",
@@ -64,8 +64,8 @@ const SERVICES = [
         <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
       </svg>
     ),
-    title: "Back-End Engineering",
-    desc: "Node.js / Express APIs with clean layered architecture: controllers, services, repositories, and typed contracts.",
+    title: "Backend Development",
+    desc: "Node.js, Express.js, RESTful APIs, API design, MVC architecture, middleware design, modular code structure.",
   },
   {
     accent: "blue",
@@ -74,8 +74,8 @@ const SERVICES = [
         <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
       </svg>
     ),
-    title: "Database Design",
-    desc: "MongoDB schema design, indexing strategies, GridFS binary storage, and query optimisation for production loads.",
+    title: "Database Design & Management",
+    desc: "MongoDB, MongoDB Atlas, schema design, query optimisation, data modelling, transaction management, data consistency.",
   },
   {
     accent: "green",
@@ -84,8 +84,8 @@ const SERVICES = [
         <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
       </svg>
     ),
-    title: "Production & DevOps",
-    desc: "Docker, environment separation, health checks, graceful shutdown, and structured logging for observable deploys.",
+    title: "DevOps & Deployment",
+    desc: "Docker, Docker Compose, Redis, Git, GitHub, Linux environment management, CI/CD concepts, performance optimisation, debugging, production problem-solving.",
   },
 ];
 
@@ -97,10 +97,10 @@ const STATS = [
 ];
 
 const PRINCIPLES = [
-  { label: "Security-First",    desc: "Auth, validation, and OWASP hardening built into every API contract." },
-  { label: "Architecture-First", desc: "Systems are designed to scale before they're coded — not retrofitted later." },
-  { label: "Production-Grade",  desc: "Logging, health checks, and graceful shutdown ship with every deployment." },
-  { label: "Self-Directed",     desc: "100% async remote. I scope accurately, communicate clearly, and deliver." },
+  { label: "Security-First",    desc: "JWT authentication, secure endpoints, data validation, and rate limiting are built into every API — not bolted on at the end." },
+  { label: "Architecture-First", desc: "Database schemas, API surfaces, and module boundaries are designed before the first line of code — never retrofitted later." },
+  { label: "Production-Grade",  desc: "Docker containerisation, health checks, graceful shutdown, and environment separation ship with every deployment." },
+  { label: "Self-Directed",     desc: "Three years of fully remote, async engineering — I scope accurately, communicate proactively, and deliver on schedule." },
 ];
 
 export const ServicesPage = () => {
@@ -123,9 +123,9 @@ export const ServicesPage = () => {
         <p className="pp-hero-eyebrow">What I Build</p>
         <h1 className="pp-hero-title">Core Services</h1>
         <p className="pp-hero-sub">
-          End-to-end engineering across back-end systems, secure APIs, real-time data layers, and
-          production-grade front-end interfaces. Every engagement is delivered with security,
-          scalability, and clean architecture as a baseline — not an add-on.
+          End-to-end engineering across secure APIs, real-time systems, payment processing, and
+          production-grade frontend interfaces — using React.js, Node.js, MongoDB, Stripe, and Docker.
+          Security, scalability, and clean architecture are the baseline, not an add-on.
         </p>
         <div className="pp-hero-actions">
           <Button as={Link} to="/contact" className="pp-btn pp-btn--primary btn">Hire Me</Button>
@@ -161,8 +161,8 @@ export const ServicesPage = () => {
           <p className="pp-section-eyebrow">Specialisations</p>
           <h2 className="pp-section-title">Eight disciplines, one developer</h2>
           <p className="pp-section-sub">
-            From architecture whiteboard to production deploy — I handle the full engineering
-            lifecycle so your team ships faster with fewer handoffs.
+            From blank canvas to production deploy — I own architecture, implementation, testing,
+            and delivery across all eight disciplines with no handoff gaps.
           </p>
         </div>
         <div className="pp-svc-grid">
@@ -187,9 +187,9 @@ export const ServicesPage = () => {
               <h2 className="pp-section-title">Engineering principles that matter</h2>
             </div>
             <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", lineHeight: 1.72 }}>
-              I don't treat security, performance, or scalability as afterthoughts. They're
-              foundational decisions made in the design phase, not patches applied at launch.
-              Every project ships with clean documentation and a handoff your team can own.
+              Security, performance, and scalability are foundational decisions made at the design
+              phase — not patches applied at launch. I write clean, maintainable code following
+              industry standards, design patterns, and best practices with comprehensive error handling.
             </p>
           </Col>
           <Col md={6}>
@@ -218,7 +218,7 @@ export const ServicesPage = () => {
         <div className="pp-section-header">
           <p className="pp-section-eyebrow">Technology</p>
           <h2 className="pp-section-title">Tools of the trade</h2>
-          <p className="pp-section-sub">A battle-tested stack refined over 3+ years of real-world projects.</p>
+          <p className="pp-section-sub">A battle-tested stack refined over 3+ years of real-world production projects — React.js, Node.js, MongoDB, Stripe, WebSockets, Docker, and more.</p>
         </div>
         <div className="pp-tech-grid" style={{ justifyContent: "center" }}>
           {skills.map((tech) => (

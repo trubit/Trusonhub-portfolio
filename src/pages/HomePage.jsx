@@ -104,14 +104,14 @@ const QUICK_ROLES = [
 ];
 
 const SERVICES = [
-  { Icon: IconArch, title: "System Architecture",        desc: "Scalable systems from scratch — API design, database architecture, MVC patterns, modular structure.",                accent: "teal"   },
-  { Icon: IconLock, title: "API Development & Security", desc: "RESTful API design, JWT authentication, secure endpoints, rate limiting, robust error handling.",                   accent: "blue"   },
-  { Icon: IconCard, title: "Payment Processing",         desc: "Stripe integration, complete payment workflows, transaction handling, financial data security.",                    accent: "green"  },
-  { Icon: IconBolt, title: "Real-Time Systems",          desc: "WebSockets, real-time data synchronization, live updates, event-driven architecture at scale.",                    accent: "orange" },
-  { Icon: IconMon,  title: "Frontend Development",       desc: "React.js, TypeScript, JavaScript ES6+, responsive design, accessible and user-centered interfaces.",              accent: "purple" },
-  { Icon: IconSrv,  title: "Backend Development",        desc: "Node.js, Express.js, modular architecture, middleware design, performance-optimized server-side logic.",           accent: "blue"   },
-  { Icon: IconDb,   title: "Database Design",            desc: "MongoDB schema design, query optimization, data consistency, transaction management in production.",               accent: "teal"   },
-  { Icon: IconProd, title: "Production Engineering",     desc: "Debugging, performance profiling, security best practices, code quality, Git workflows.",                          accent: "green"  },
+  { Icon: IconArch, title: "System Architecture",        desc: "Scalable systems from scratch — API design, database architecture, MVC patterns, modular structure.",                      accent: "teal"   },
+  { Icon: IconLock, title: "API Development & Security", desc: "RESTful API design, JWT token authentication, secure endpoints, rate limiting, data validation, error handling.",           accent: "blue"   },
+  { Icon: IconCard, title: "Payment Processing",         desc: "Stripe API integration, payment workflows, transaction handling, webhook management, PCI compliance awareness.",            accent: "green"  },
+  { Icon: IconBolt, title: "Real-Time Systems",          desc: "WebSockets, event-driven architecture, real-time data synchronization, live updates, instant notifications.",               accent: "orange" },
+  { Icon: IconMon,  title: "Frontend Development",       desc: "React.js, TypeScript, JavaScript ES6+, React Query, Redux, responsive design, production-grade user interfaces.",          accent: "purple" },
+  { Icon: IconSrv,  title: "Backend Development",        desc: "Node.js, Express.js, RESTful APIs, MVC architecture, middleware design, modular code structure.",                          accent: "blue"   },
+  { Icon: IconDb,   title: "Database Design & Management", desc: "MongoDB, MongoDB Atlas, schema design, query optimization, data modeling, transaction management, data consistency.",                              accent: "teal"   },
+  { Icon: IconProd, title: "DevOps & Deployment",        desc: "Docker, Docker Compose, Redis, Git, GitHub, Linux environment management, CI/CD concepts, performance optimization, debugging, production problem-solving.", accent: "green"  },
 ];
 
 const SKILL_CATEGORIES = [
@@ -119,25 +119,25 @@ const SKILL_CATEGORIES = [
     icon: "⚛",
     label: "Frontend",
     accent: "blue",
-    skills: ["React.js", "TypeScript", "JavaScript ES6+", "HTML5", "CSS3", "Responsive Design"],
+    skills: ["React.js", "TypeScript", "JavaScript ES6+", "React Query", "Redux", "Responsive Design"],
   },
   {
     icon: "⚙",
     label: "Backend",
     accent: "green",
-    skills: ["Node.js", "Express.js", "RESTful APIs", "JWT Auth", "MVC Architecture", "Middleware"],
+    skills: ["Node.js", "Express.js", "RESTful APIs", "JWT Auth", "MVC Architecture", "WebSockets"],
   },
   {
     icon: "🗄",
     label: "Database",
     accent: "teal",
-    skills: ["MongoDB", "Schema Design", "Query Optimization", "Data Modeling", "Transactions"],
+    skills: ["MongoDB", "MongoDB Atlas", "Schema Design", "Query Optimization", "Data Modeling", "Transactions"],
   },
   {
     icon: "🛠",
     label: "Tools & DevOps",
     accent: "purple",
-    skills: ["Git", "GitHub", "Stripe API", "WebSockets", "Performance Opt.", "Security"],
+    skills: ["Docker", "Docker Compose", "Redis", "Git", "GitHub", "Linux"],
   },
 ];
 
@@ -187,9 +187,9 @@ export const HomePage = () => {
             <p className="home-hero-role">{headline}</p>
 
             <p className="home-hero-summary">
-              3+ years building production-grade web applications — secure REST APIs,
-              real-time WebSocket systems, Stripe payment integrations, and full-stack
-              architectures in React, Node.js, and MongoDB.
+              3+ years designing and building scalable web applications from the ground up —
+              expert in API security, Stripe payment processing, real-time WebSocket systems,
+              and full-stack architectures using React.js, Node.js, MongoDB, and Docker.
             </p>
 
             <div className="home-hero-signals">
@@ -369,9 +369,11 @@ export const HomePage = () => {
             </div>
           </div>
           <div className="home-snapshot-notes">
-            {profileData.recruiterSnapshotNotes.map((note) => (
-              <span key={note}>{note}</span>
-            ))}
+            {profileData.recruiterSnapshotNotes
+              .filter((note) => note !== "Relocation Available" && note !== "Remote | Hybrid | On-site")
+              .map((note) => (
+                <span key={note}>{note}</span>
+              ))}
           </div>
           <div className="home-snapshot-actions">
             <Button as={Link} to="/resume" className="home-snapshot-primary">

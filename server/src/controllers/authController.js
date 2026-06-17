@@ -12,6 +12,14 @@ const loginAttempts = new Map();
 const MAX_ATTEMPTS = 5;
 const LOCKOUT_MS = 15 * 60 * 1000;
 
+// Sweep expired entries every 30 minutes so the Map never grows unboundedly.
+setInterval(() => {
+  const now = Date.now();
+  for (const [key, record] of loginAttempts) {
+    if (now > record.resetAt) loginAttempts.delete(key);
+  }
+}, 30 * 60 * 1000).unref();
+
 function isLockedOut(email) {
   const record = loginAttempts.get(email);
   if (!record) return false;
@@ -32,7 +40,9 @@ function safeEqual(a, b) {
   try {
     const ba = Buffer.from(String(a));
     const bb = Buffer.from(String(b));
-    return ba.length === bb.length && crypto.timingSafeEqual(ba, bb);
+    // No length pre-check — let timingSafeEqual throw on mismatch (caught below),
+    // so wrong-length and same-length guesses take the same code path.
+    return crypto.timingSafeEqual(ba, bb);
   } catch { return false; }
 }
 
